@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body> 
+    <div class="about-form-container">
+    <h2>Submit Your About Me</h2>
+    <form id="aboutForm">
+        <label for="name">Your Name:</label>
+        <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+        <label for="role">Your Role/Profession:</label>
+        <input type="text" id="role" name="role" placeholder="Web Developer, Designer..." required>
+
+        <label for="bio">Your About Section:</label>
+        <textarea id="bio" name="bio" rows="5" placeholder="Tell us about yourself..." required></textarea>
+
+        <button type="submit" class="btn">Submit</button>
+    </form>
+     <a href="index.html" class="btn">Back to Profile</a>
+
+    <div id="submittedAbout" class="submitted-about"></div>
+    <script>
+document.getElementById('aboutForm').addEventListener('submit', function(e){
+    e.preventDefault();
+
+    const name = document.getElementById('name').value;
+    const role = document.getElementById('role').value;
+    const bio = document.getElementById('bio').value;
+
+    const displayDiv = document.getElementById('submittedAbout');
+    displayDiv.innerHTML = `
+        <h3>${name} | ${role}</h3>
+        <p>${bio}</p>
+    `;
+
+    // Reset form
+    this.reset();
+});
+</script>
