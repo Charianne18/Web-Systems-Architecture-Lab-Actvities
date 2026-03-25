@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX Username Checker</title>
+</head>
+
+<body>
+    <h2>Check Username Availability</h2>
+
+    <input type="text" id="username" placeholder="Enter a username">
+    <button onclick="checkUsername()">Check</button>
+
+    <p id="status"></p>
+
+    <script>
+        async function checkUsername() {
+            const username = document.getElementById("username").value;
+
+            if (!username.trim()) {
+                document.getElementById("status").innerText = "Please enter a username.";
+                document.getElementById("status").style.color = "red";
+                return;
+            }
+
+            try {
+                const response = await fetch("check_user.php", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    body: "username=" + encodeURIComponent(username)
+                });
+
+                const data = await response.json();
+
+                const status = document.getElementById("status");
+                status.innerText = data.message;
+                status.style.color = data.available ? "green" : "red";
+
+            } catch (error) {
+                console.error(error);
+                document.getElementById("status").innerText = "Server error.";
+                document.getElementById("status").style.color = "red";
+            }
+        }
+    </script>
+</body>
+
+</html>
